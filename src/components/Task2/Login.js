@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { Button, View, TextInput } from "react-native";
+import { Button, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import GlobalStyle from "../../styles/GlobalStyle";
-import { Text } from "react-native-paper";
+import { Text, TextInput } from "react-native-paper";
 
 const Login = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
     const [userName, setUserName] = useState("");
+    const [secretKey, setSecretKey] = useState("");
 
   
 
@@ -21,7 +22,7 @@ const Login = () => {
               },
               body: JSON.stringify({
                 username: userName, 
-                usersecret: '!api123', 
+                usersecret: secretKey, 
                 userpassword: '!Temp123', 
               }),
             });
@@ -61,12 +62,21 @@ const Login = () => {
 
             <View>
               <Text variant="titleLarge" style={[GlobalStyle.textCenter, GlobalStyle.marginTop25px]}>Test the login with username</Text>
-              <Text variant="titleLarge" style={[GlobalStyle.textCenter, GlobalStyle.marginTop25px, GlobalStyle.marginBottom50]}>User Name : apiuser@stacktech.io</Text>
+              <Text variant="titleLarge" style={[GlobalStyle.textCenter, GlobalStyle.marginTop25px]}>User Name : apiuser@stacktech.io</Text>
+              <Text variant="titleLarge" style={[GlobalStyle.textCenter, GlobalStyle.marginTop25px, GlobalStyle.marginBottom50]}>Secret Key : !api123</Text>
               <TextInput
             style={[GlobalStyle.loginInput, GlobalStyle.marginBottom25]}
             placeholder="Enter username"
             value={userName}
             onChangeText={setUserName}
+            label="Username"
+          />
+          <TextInput
+            style={[GlobalStyle.loginInput, GlobalStyle.marginBottom25]}
+            placeholder="Enter Secret Key"
+            value={secretKey}
+            onChangeText={setSecretKey}
+            label="Secret Key"
           />
           <Button style={GlobalStyle.marginTop25px} title="Login" onPress={authenticateUser} />
             </View>
